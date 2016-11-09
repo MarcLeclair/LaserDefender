@@ -10,6 +10,8 @@ public class EnemySpawner : MonoBehaviour {
     float xMin, xMax;
     bool movingRight = true;
     public  float speed = 30f;
+
+
 	// Use this for initialization
 	void Start () {
 
@@ -51,4 +53,6 @@ public class EnemySpawner : MonoBehaviour {
             movingRight = false;
         }
     }
+
+  
 }

@@ -50,6 +50,9 @@
      <Compile Include="Assets\Scripts\MusicPlayer.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
      <Compile Include="Assets\Scripts\Position.cs" />
+     <Compile Include="Assets\Scripts\Shredder.cs" />
+     <Compile Include="Assets\Scripts\enemyBehavior.cs" />
+     <Compile Include="Assets\Scripts\laser.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Windows Poto Viewer/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

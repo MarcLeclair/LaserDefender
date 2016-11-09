@@ -3,10 +3,12 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour {
 
+    public GameObject laserPrefab;
     public float padding = 1f;
 
     private float speed = 10.0f;
     private float xMin, xMax;
+
     // Use this for initialization
     void Start () {
 
@@ -31,6 +33,20 @@ public class PlayerController : MonoBehaviour {
         }
 
         transform.position = new Vector2(Mathf.Clamp(transform.position.x, xMin, xMax), transform.position.y);
-    
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            InvokeRepeating("Fire", .000001f, 1f);
+        }
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            CancelInvoke("Fire");
+        }
+    }
+
+    void Fire()
+    {
+        GameObject laser = Instantiate(laserPrefab, transform.position, Quaternion.identity) as GameObject;
+        laser.GetComponent<Rigidbody2D>().velocity = new Vector3(0, 5f, 0);
     }
 }
