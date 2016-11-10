@@ -3,6 +3,8 @@ using System.Collections;
 
 public class EnemySpawner : MonoBehaviour {
     public GameObject enemyPrefab;
+    public float spawnDelay = .5f;
+
 
     float width = 10f;
     float height = 5f;
@@ -15,15 +17,11 @@ public class EnemySpawner : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-        foreach(Transform child in transform)
-        {
-            GameObject enemy = Instantiate(enemyPrefab, child.transform.position, Quaternion.identity) as GameObject;
-            enemy.transform.parent = child;
-        }
+        SpawnUntilFull();
         float distance = transform.position.z - Camera.main.transform.position.z;
         Vector3 leftmost = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, distance));
         Vector3 rightmost = Camera.main.ViewportToWorldPoint(new Vector3(1, 0, distance));
-        xMin = leftmost.x ;
+        xMin = leftmost.x;
         xMax = rightmost.x;
 
     }
@@ -52,7 +50,44 @@ public class EnemySpawner : MonoBehaviour {
         {
             movingRight = false;
         }
+
+        if (AllMembersDead()) SpawnUntilFull();
     }
+
+    bool AllMembersDead()
+    {
+        foreach(Transform childPosition in transform)
+        {
+            if (childPosition.childCount > 0) return false;  
+        }
+        return true;
+    }
+
+    Transform NextFreePosition()
+    {
+        foreach (Transform childPosition in transform)
+        {
+            if (childPosition.childCount <= 0) return childPosition;
+        }
+        return null;
+    }
+
+    
+
+    void SpawnUntilFull()
+    {
+        Transform position = NextFreePosition();
+        if (position)
+        {
+            GameObject enemy = Instantiate(enemyPrefab, position.transform.position, Quaternion.identity) as GameObject;
+            enemy.transform.parent = position;
+        }
+        if (NextFreePosition())
+        {
+            Invoke("SpawnUntilFull", spawnDelay);
+        }
+    }
+
 
   
 }

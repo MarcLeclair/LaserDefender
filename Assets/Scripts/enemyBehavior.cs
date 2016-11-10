@@ -14,6 +14,7 @@ public class enemyBehavior : MonoBehaviour {
             if(health <= 0)
             {
                 Destroy(gameObject);
+                Destroy(col.gameObject);
             }
         }
         Debug.Log(col);
@@ -34,5 +35,7 @@ public class enemyBehavior : MonoBehaviour {
         GameObject laser = Instantiate(laserPrefab, startPos, Quaternion.identity) as GameObject;
         laser.GetComponent<Rigidbody2D>().velocity = new Vector3(0, -5f, 0);
     }
+
+    
 }
 
