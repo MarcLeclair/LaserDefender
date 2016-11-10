@@ -2,12 +2,12 @@
 using System.Collections;
 
 public class PlayerController : MonoBehaviour {
-
+    public float health = 150f;
     public GameObject laserPrefab;
     public float padding = 1f;
 
-    private float speed = 10.0f;
-    private float xMin, xMax;
+     float speed = 10.0f;
+     float xMin, xMax;
 
     // Use this for initialization
     void Start () {
@@ -46,7 +46,22 @@ public class PlayerController : MonoBehaviour {
 
     void Fire()
     {
-        GameObject laser = Instantiate(laserPrefab, transform.position, Quaternion.identity) as GameObject;
+        Vector3 offset = new Vector3(0, .1f, 0) + transform.position;
+        GameObject laser = Instantiate(laserPrefab, offset, Quaternion.identity) as GameObject;
         laser.GetComponent<Rigidbody2D>().velocity = new Vector3(0, 5f, 0);
+    }
+
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        laser missile = col.gameObject.GetComponent<laser>();
+        if (missile)
+        {
+            health -= missile.getDamage();
+            if (health <= 0)
+            {
+                Destroy(gameObject);
+            }
+        }
+        Debug.Log(col);
     }
 }
