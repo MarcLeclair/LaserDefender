@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class enemyBehavior : MonoBehaviour {
+    public GameObject laserPrefab;
 
     public float health = 150f;
     void OnTriggerEnter2D(Collider2D col)
@@ -16,6 +17,18 @@ public class enemyBehavior : MonoBehaviour {
             }
         }
         Debug.Log(col);
+    }
+
+    void Update()
+    {
+        Fire();
+    }
+
+    void Fire()
+    {
+        Vector3 startPos = transform.position + new Vector3(0, -1f, 0);
+        GameObject laser = Instantiate(laserPrefab, startPos, Quaternion.identity) as GameObject;
+        laser.GetComponent<Rigidbody2D>().velocity = new Vector3(0, -5f, 0);
     }
 }
 
