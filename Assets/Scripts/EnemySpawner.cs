@@ -17,7 +17,7 @@ public class EnemySpawner : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-        SpawnUntilFull();
+        SpawnEnemies();
         float distance = transform.position.z - Camera.main.transform.position.z;
         Vector3 leftmost = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, distance));
         Vector3 rightmost = Camera.main.ViewportToWorldPoint(new Vector3(1, 0, distance));
@@ -88,6 +88,14 @@ public class EnemySpawner : MonoBehaviour {
         }
     }
 
+    void SpawnEnemies()
+    {
+        foreach (Transform position in transform)
+        {
+           GameObject enemy = Instantiate(enemyPrefab, position.transform.position, Quaternion.identity) as GameObject;
+            enemy.transform.parent = position;
+         }
+    }
 
   
 }
