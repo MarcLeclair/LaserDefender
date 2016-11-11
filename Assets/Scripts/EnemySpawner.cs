@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class EnemySpawner : MonoBehaviour {
+
     public GameObject enemyPrefab;
     public float spawnDelay = .5f;
 
@@ -92,6 +93,7 @@ public class EnemySpawner : MonoBehaviour {
     {
         foreach (Transform position in transform)
         {
+            
            GameObject enemy = Instantiate(enemyPrefab, position.transform.position, Quaternion.identity) as GameObject;
             enemy.transform.parent = position;
          }

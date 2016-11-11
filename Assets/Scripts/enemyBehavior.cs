@@ -2,9 +2,17 @@
 using System.Collections;
 
 public class enemyBehavior : MonoBehaviour {
+
     public GameObject laserPrefab;
+    public ParticleSystem thrusters;
     public float health = 150f;
     public float shotsPerSec = .5f;
+
+    void Awake()
+    {
+        thrusters.Play();
+    }
+
     void OnTriggerEnter2D(Collider2D col)
     {
         laser missile = col.gameObject.GetComponent<laser>();
@@ -22,6 +30,7 @@ public class enemyBehavior : MonoBehaviour {
 
     void Update()
     {
+       
         float probability = Time.deltaTime * shotsPerSec;
         if (Random.value < probability)
         {
