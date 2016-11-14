@@ -7,10 +7,20 @@ public class enemyBehavior : MonoBehaviour {
     public ParticleSystem thrusters;
     public float health = 150f;
     public float shotsPerSec = .5f;
+    public int valueOfenemy;
+    public AudioClip explosion, firing;
+
+    ScoreKeeper score;
+   
 
     void Awake()
     {
         thrusters.Play();
+    }
+    
+    void Start()
+    {
+        score = GameObject.Find("ScoreKeeper").GetComponent<ScoreKeeper>();
     }
 
     void OnTriggerEnter2D(Collider2D col)
@@ -23,6 +33,8 @@ public class enemyBehavior : MonoBehaviour {
             {
                 Destroy(gameObject);
                 Destroy(col.gameObject);
+                score.Score(valueOfenemy);
+                AudioSource.PlayClipAtPoint(explosion, transform.position);
             }
         }
         Debug.Log(col);
@@ -40,9 +52,9 @@ public class enemyBehavior : MonoBehaviour {
 
     void Fire()
     {
-        Vector3 startPos = transform.position + new Vector3(0, -1f, 0);
-        GameObject laser = Instantiate(laserPrefab, startPos, Quaternion.identity) as GameObject;
+        GameObject laser = Instantiate(laserPrefab, transform.position, Quaternion.identity) as GameObject;
         laser.GetComponent<Rigidbody2D>().velocity = new Vector3(0, -5f, 0);
+        AudioSource.PlayClipAtPoint(firing, transform.position);
     }
 
     

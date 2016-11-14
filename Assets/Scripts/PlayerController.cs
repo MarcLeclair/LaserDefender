@@ -46,9 +46,10 @@ public class PlayerController : MonoBehaviour {
 
     void Fire()
     {
-        Vector3 offset = new Vector3(0, .1f, 0) + transform.position;
-        GameObject laser = Instantiate(laserPrefab, offset, Quaternion.identity) as GameObject;
+        GameObject laser = Instantiate(laserPrefab, transform.position, Quaternion.identity) as GameObject;
         laser.GetComponent<Rigidbody2D>().velocity = new Vector3(0, 5f, 0);
+        AudioSource audio = this.GetComponent<AudioSource>();
+        audio.Play();
     }
 
     void OnTriggerEnter2D(Collider2D col)
